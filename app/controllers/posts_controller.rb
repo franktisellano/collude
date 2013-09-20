@@ -14,6 +14,7 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
+    @autofill = (params[:url]) ? true : false
     @post = Post.new
   end
 

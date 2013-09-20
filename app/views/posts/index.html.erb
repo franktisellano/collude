@@ -28,7 +28,11 @@
   <% post.comments.each do |comment| %>
     <li class="list-group-item clearfix" id="<%= "comment-#{comment.id}" %>">
       <div class="comment-gravatar pull-left"><%= gravatar_for(comment.user, size: 36) %></div>
-      <div class="comment-timestamp pull-right"><%= comment.created_at.in_time_zone.strftime("%b %d at %-I:%M %p") %></div>
+      <div class="comment-timestamp pull-right"><%= comment.created_at.in_time_zone.strftime("%b %d at %-I:%M %p") %><br />
+        <% if comment.user == current_user %>
+          <p class="text-muted text-right"><%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?' } %></p>
+        <% end %>
+      </div>
       <div class="comment-text"><%= comment.text %></div>
 
     </li>

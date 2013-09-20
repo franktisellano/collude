@@ -54,22 +54,36 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="form-group">
-    <%= f.label :url, "URL" %><br>
-    <%= f.text_field :url, :class => "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :title %><br>
-    <%= f.text_field :title, :class => "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :description %><br>
-    <%= f.text_area :description, :class => "form-control" %>
-  </div>
-  <div class="form-group" id="tag_group">
-    <%= f.label :tag_list %>
-    <%= f.text_field :tag_list, :class => "form-control" %>
-  </div>
-  <%= f.submit :class => "btn btn-primary" %>
+  <% unless @autofill %>
+    <div class="form-group">
+      <%= f.label :url, "URL" %><br>
+      <%= f.text_field :url, :class => "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :title %><br>
+      <%= f.text_field :title, :class => "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :description %><br>
+      <%= f.text_area :description, :class => "form-control" %>
+    </div>
+  <% else %>
+    <div class="form-group">
+      <%= f.label :url, "URL" %><br>
+      <%= f.text_field :url, :class => "form-control", :value => params[:url] %>
+    </div>
+    <div class="form-group">
+      <%= f.label :title %><br>
+      <%= f.text_field :title, :class => "form-control", :value => params[:title] %>
+    </div>
+    <div class="form-group">
+      <%= f.label :description %><br>
+      <%= f.text_area :description, :class => "form-control", :value => params[:description] %>
+    </div>
+  <% end %>
+    <div class="form-group" id="tag_group">
+      <%= f.label :tag_list %>
+      <%= f.text_field :tag_list, :class => "form-control" %>
+    </div>
+    <%= f.submit :class => "btn btn-primary" %>
 <% end %>
