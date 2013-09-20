@@ -1,6 +1,6 @@
 <script>
   $(function() {
-    var availableTags = <%= Post.tag_counts.map(&:name).to_json.html_safe %>;
+    var availableTags = <%= @tags.to_json.html_safe %>;
     function split( val ) {
       return val.split( /,\s*/ );
     }
@@ -40,6 +40,18 @@
         },
         appendTo: '#tag_group'
       });
+
+      $('.tag-cloud-item').on('click', function() {
+        var terms = split( $('#post_tag_list').val() );
+          // remove the current input
+          terms.pop();
+          // add the selected item
+          terms.push( $(this).attr('data-name') );
+          // add placeholder to get the comma-and-space at the end
+          terms.push( "" );
+          $('#post_tag_list').val(terms.join( ", " ));
+          return false;
+      })
   });
   </script>
 <%= form_for(@post, :html => { role: "form" }) do |f| %>
@@ -84,6 +96,11 @@
     <div class="form-group" id="tag_group">
       <%= f.label :tag_list %>
       <%= f.text_field :tag_list, :class => "form-control" %>
+    </div>
+    <div class="form-group">
+      <% @tags.each do |tag| %>
+        <span><a class="tag-cloud-item" href="#" data-name="<%= tag %>"><%= tag %><% unless (tag == @tags.last) %></a>, <% end %></span>
+      <% end %>
     </div>
     <%= f.submit :class => "btn btn-primary" %>
 <% end %>

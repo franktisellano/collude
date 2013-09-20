@@ -15,11 +15,13 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     @autofill = (params[:url]) ? true : false
+    @tags = Post.tag_counts.map(&:name)
     @post = Post.new
   end
 
   # GET /posts/1/edit
   def edit
+    @tags = Post.tag_counts.map(&:name)
   end
 
   # POST /posts
