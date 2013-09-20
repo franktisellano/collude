@@ -9,8 +9,12 @@ gem 'cancan'
 
 # Dev
 group :development do
-    gem 'better_errors'
-    gem 'debugger'
+  gem 'better_errors'
+  gem 'debugger'
+end
+
+group :production do
+  gem 'rails_12factor'
 end
 
 # Heroku needs postgres
