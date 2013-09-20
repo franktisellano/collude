@@ -1,3 +1,47 @@
+<script>
+  $(function() {
+    var availableTags = <%= Post.tag_counts.map(&:name).to_json.html_safe %>;
+    function split( val ) {
+      return val.split( /,\s*/ );
+    }
+    function extractLast( term ) {
+      return split( term ).pop();
+    }
+ 
+    $( "#post_tag_list" )
+      // don't navigate away from the field on tab when selecting an item
+      .bind( "keydown", function( event ) {
+        if ( event.keyCode === $.ui.keyCode.TAB &&
+            $( this ).data( "ui-autocomplete" ).menu.active ) {
+          event.preventDefault();
+        }
+      })
+      .autocomplete({
+        minLength: 0,
+        source: function( request, response ) {
+          // delegate back to autocomplete, but extract the last term
+          response( $.ui.autocomplete.filter(
+            availableTags, extractLast( request.term ) ) );
+        },
+        focus: function() {
+          // prevent value inserted on focus
+          return false;
+        },
+        select: function( event, ui ) {
+          var terms = split( this.value );
+          // remove the current input
+          terms.pop();
+          // add the selected item
+          terms.push( ui.item.value );
+          // add placeholder to get the comma-and-space at the end
+          terms.push( "" );
+          this.value = terms.join( ", " );
+          return false;
+        },
+        appendTo: '#tag_group'
+      });
+  });
+  </script>
 <%= form_for(@post, :html => { role: "form" }) do |f| %>
   <% if @post.errors.any? %>
     <div id="error_explanation">
@@ -22,6 +66,10 @@
   <div class="form-group">
     <%= f.label :description %><br>
     <%= f.text_area :description, :class => "form-control" %>
+  </div>
+  <div class="form-group" id="tag_group">
+    <%= f.label :tag_list %>
+    <%= f.text_field :tag_list, :class => "form-control" %>
   </div>
   <%= f.submit :class => "btn btn-primary" %>
 <% end %>

@@ -1,4 +1,4 @@
-<%= link_to 'New Post', new_post_path, class: 'new-post btn btn-default btn-sm' %>
+<h3>Posts tagged with</h3>
 
 <% @posts.each do |post| %>
 
@@ -13,16 +13,15 @@
   </div>
   <div class="panel-body">
     <p class="lead"><%= post.description %></p>
-    <ul class="tags-list pull-left">
-      <lh>Tags:</lh>
-      <% post.tags.each do |tag| %>
+    <p class="text-muted pull-left">
+      Tags:
+      <ul class="tags-list">
+        <% post.tags.each do |tag| %>
         <li><%= link_to tag.name, "/tags/#{tag.name}" %></li>
-      <% end %>
-    </ul>
+        <% end %>
+      </ul>
+    </p>
     <p class="text-muted text-right"><%= post.created_at.in_time_zone.strftime("%b %d at %-I:%M %p") %></p>
-    <% if post.user == current_user %>
-      <p class="text-muted text-right"><%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' } %> | <%= link_to 'Edit', edit_post_path(post) %></p>
-    <% end %>
   </div>
   <ul class="list-group">
   <% post.comments.each do |comment| %>

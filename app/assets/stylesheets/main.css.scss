@@ -1,7 +1,7 @@
 @import "twitter/bootstrap";
 
 .container {
-  max-width: 700px;
+  max-width: 720px;
 }
 .sign-in-out {
   position: relative;
@@ -33,4 +33,48 @@
 .navbar-bottom {
     margin-bottom: 0;
     margin-top: 40px;
+}
+
+.tags-list {
+  list-style: none;
+  padding: 0;
+
+  li {
+    display: inline;
+    a {
+      color: #999999;
+    }
+  }
+}
+
+/* autocomplete */
+.ui-helper-hidden-accessible {
+  display: none;
+}
+.ui-autocomplete {
+  background: #fff;
+  border: 1px solid #999999;
+  border-radius: 3px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.ui-menu-item {
+  margin: 0;
+  a {
+    display: block;
+    cursor: pointer;
+    padding: 10px;
+    &:hover {
+      background: #428bca;
+    }
+  }
+}
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus {
+    background: #e6e6e6;
 }

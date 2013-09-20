@@ -9,15 +9,15 @@ gem 'cancan'
 
 # Dev
 group :development do
-    gem 'sqlite3'
     gem 'better_errors'
     gem 'debugger'
 end
 
 # Heroku needs postgres
-group :production do
-    gem 'pg'
-end
+gem 'pg'
+
+# Tags
+gem 'acts-as-taggable-on'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -33,6 +33,7 @@ gem 'coffee-rails', '~> 4.0.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 # Bootstrap
 gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails',

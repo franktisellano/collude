@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130920034120) do
+ActiveRecord::Schema.define(version: 20130920055430) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "comments", force: true do |t|
     t.text     "text"
@@ -21,16 +24,8 @@ ActiveRecord::Schema.define(version: 20130920034120) do
     t.datetime "updated_at"
   end
 
-  add_index "comments", ["post_id"], name: "index_comments_on_post_id"
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
-
-  create_table "post_tags", force: true do |t|
-    t.integer "post_id"
-    t.integer "tag_id"
-  end
-
-  add_index "post_tags", ["post_id"], name: "index_post_tags_on_post_id"
-  add_index "post_tags", ["tag_id"], name: "index_post_tags_on_tag_id"
+  add_index "comments", ["post_id"], name: "index_comments_on_post_id", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "posts", force: true do |t|
     t.string   "url"
@@ -41,20 +36,23 @@ ActiveRecord::Schema.define(version: 20130920034120) do
     t.datetime "updated_at"
   end
 
-  add_index "posts", ["user_id"], name: "index_posts_on_user_id"
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
 
-  create_table "posts_tags", force: true do |t|
-    t.integer "post_id"
-    t.integer "tag_id"
+  create_table "taggings", force: true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context",       limit: 128
+    t.datetime "created_at"
   end
 
-  add_index "posts_tags", ["post_id"], name: "index_posts_tags_on_post_id"
-  add_index "posts_tags", ["tag_id"], name: "index_posts_tags_on_tag_id"
+  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
 
   create_table "tags", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string "name"
   end
 
   create_table "users", force: true do |t|
@@ -72,7 +70,7 @@ ActiveRecord::Schema.define(version: 20130920034120) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

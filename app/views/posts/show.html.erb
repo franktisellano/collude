@@ -17,7 +17,14 @@
 
 <p>
   <strong>User:</strong>
-  <%= @post.user %>
+  <%= @post.user.email %>
+</p>
+
+<p>
+  <strong>Tags:</strong>
+  <% @post.tag_list.each do |tag| %>
+    <%= tag %>
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |

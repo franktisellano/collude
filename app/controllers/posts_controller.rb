@@ -61,6 +61,10 @@ class PostsController < ApplicationController
     end
   end
 
+  def tagged
+    @posts = Post.tagged_with(params[:tag])
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
@@ -69,6 +73,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:url, :title, :description)
+      params.require(:post).permit(:url, :title, :description, :tag_list)
     end
 end
