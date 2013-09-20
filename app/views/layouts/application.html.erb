@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Collude</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+  <div class="container">
+    
+    <div class="col-xs-12 clearfix" id="header">
+      <h1 class="pull-left"><%= link_to "The Group", root_path %></h1>
+        <div class="pull-right sign-in-out">
+          <% if user_signed_in? %>
+            <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        
+          <% else %>
+            <%= link_to('Login', new_user_session_path)  %>  
+          <% end %>
+        </div>
+    </div>
+
+    <hr />
+
+    <% if notice %>
+      <p class="alert alert-info"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+      <p class="alert alert-danger"><%= alert %></p>
+    <% end %>
+    
+    <%= yield %>
+  </div>
+
+  <nav class="navbar navbar-default navbar-bottom" role="footer" id="footer">
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <p class="navbar-text">Designed and developed by Frank Tisellano in 2013.</p>
+    </div>
+</nav>
+</body>
+</html>

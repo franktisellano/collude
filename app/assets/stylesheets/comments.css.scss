@@ -1,0 +1,30 @@
+// Place all the styles related to the Comments controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.comment-gravatar {
+  position: relative;
+  width: 36px;
+}
+.comment-text {
+  display: block;
+  margin-left: 48px;
+
+  font-size: 13px;
+}
+.comment-timestamp {
+  color: gray;
+  font-size: 11px;
+}
+.post .list-group {
+  border-top: 3px solid #dddddd;
+}
+.new-comment-textarea {
+  resize: vertical;
+  padding-right: 80px !important;
+}
+.new-comment-btn {
+  position: relative;
+  margin-top: -42px;
+  left: -10px;
+}
