@@ -48,7 +48,7 @@ class PostsController < ApplicationController
             :to => user.phone_number,
             :body => "#{current_user.name} just created a new post on collude."
           )
-          logger.info "Text message sent to #{@user.name} at #{@user.phone_number}."
+          logger.info "Text message sent to #{user.name} at #{user.phone_number}."
         end
         redirect_to @post, notice: 'Post was successfully created.'
       end
