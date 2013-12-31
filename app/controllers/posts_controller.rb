@@ -47,7 +47,7 @@ class PostsController < ApplicationController
             @twilio_client.account.sms.messages.create(
               :from => '+16463621414',
               :to => user.phone_number,
-              :body => "#{current_user.email} just created a new post on collude: #{post_url(@post)}"
+              :body => "#{current_user.name} just created a new post on collude: #{post_url(@post)}"
             )
           end
         end
