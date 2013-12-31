@@ -6,6 +6,7 @@ gem 'rails', '4.0.0'
 # Auth
 gem 'devise'
 gem 'cancan'
+gem 'activeadmin', github: 'gregbell/active_admin'
 
 # Dev
 group :development do
