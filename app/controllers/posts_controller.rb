@@ -31,8 +31,28 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
 
     respond_to do |format|
-      if @post.save
-        format.html { redirect_to @post, notice: 'Post was successfully created.' }
+    if @post.save
+      format.html do
+
+        @users = User.all
+
+        # Twilio constants – should be moved to config
+        account_sid = 'ACd619abfb51473fa45265088dbf7cbf7d'
+        account_token = 'a5225b03b9cfee05ffcf539bf58c6492'
+
+        @twilio_client = Twilio::REST::Client.new account_sid, account_token
+
+        @users.each do |user|
+          unless user = current_user
+            @twilio_client.account.sms.messages.create(
+              :from => '+16463621414',
+              :to => user.phone_number,
+              :body => "#{current_user.email} just created a new post on collude: #{post_url(@post)}"
+            )
+          end
+        end
+        redirect_to @post, notice: 'Post was successfully created.'
+      end
         format.json { render action: 'show', status: :created, location: @post }
       else
         format.html { render action: 'new' }

@@ -20,6 +20,9 @@ end
 # Heroku needs postgres
 gem 'pg'
 
+# Twilio
+gem 'twilio-ruby'
+
 # Tags
 gem 'acts-as-taggable-on'
 
