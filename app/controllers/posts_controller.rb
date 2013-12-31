@@ -43,13 +43,12 @@ class PostsController < ApplicationController
         @twilio_client = Twilio::REST::Client.new account_sid, account_token
 
         @users.each do |user|
-          unless user = current_user
-            @twilio_client.account.sms.messages.create(
-              :from => '+16463621414',
-              :to => user.phone_number,
-              :body => "#{current_user.name} just created a new post on collude: #{post_url(@post)}"
-            )
-          end
+          @twilio_client.account.sms.messages.create(
+            :from => '+16463621414',
+            :to => user.phone_number,
+            :body => "#{current_user.name} just created a new post on collude."
+          )
+          logger.info "Text message sent to #{@user.name} at #{@user.phone_number}."
         end
         redirect_to @post, notice: 'Post was successfully created.'
       end

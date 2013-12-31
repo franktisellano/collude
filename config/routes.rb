@@ -1,4 +1,5 @@
 Collude::Application.routes.draw do
+  ActiveAdmin.routes(self)
   resources :comments
   resources :posts
   devise_for :users
