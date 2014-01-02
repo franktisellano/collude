@@ -46,8 +46,7 @@ class CommentsController < ApplicationController
             )
             logger.info "Text message sent to #{user.name} at #{user.phone_number}."
           end
-
-          redirect_to root_path, notice: 'Comment was successfully created.' }
+          redirect_to root_path, notice: 'Comment was successfully created.'
         end 
         format.json { render action: 'show', status: :created, location: @comment }
       else
