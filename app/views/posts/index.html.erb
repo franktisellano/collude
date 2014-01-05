@@ -12,7 +12,7 @@
     <span class="pull-right post-avatar"><%= gravatar_for(post.user, size: 24) %></span>
   </div>
   <div class="panel-body">
-    <p class="lead"><%= simple_format(post.description) %></p>
+    <p class="lead"><%= simple_format(auto_link(post.description)) %></p>
     <ul class="tags-list pull-left">
       <lh>Tags:</lh>
       <% post.tags.each do |tag| %>
@@ -33,7 +33,7 @@
           <p class="text-muted text-right"><%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?' } %></p>
         <% end %>
       </div>
-      <div class="comment-text"><%= simple_format(comment.text) %></div>
+      <div class="comment-text"><%= simple_format(auto_link(comment.text)) %></div>
 
     </li>
   <% end %>
