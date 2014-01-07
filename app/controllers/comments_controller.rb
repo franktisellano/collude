@@ -30,22 +30,22 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.save
         format.html do
-          @users = User.all
+          # @users = User.all
 
-          # Twilio constants – should be moved to config
-          account_sid = 'ACd619abfb51473fa45265088dbf7cbf7d'
-          account_token = 'a5225b03b9cfee05ffcf539bf58c6492'
+          # # Twilio constants – should be moved to config
+          # account_sid = 'ACd619abfb51473fa45265088dbf7cbf7d'
+          # account_token = 'a5225b03b9cfee05ffcf539bf58c6492'
 
-          @twilio_client = Twilio::REST::Client.new account_sid, account_token
+          # @twilio_client = Twilio::REST::Client.new account_sid, account_token
 
-          @users.each do |user|
-            @twilio_client.account.sms.messages.create(
-              :from => '+16463621414',
-              :to => user.phone_number,
-              :body => "#{current_user.name} just commented on a collude post."
-            )
-            logger.info "Text message sent to #{user.name} at #{user.phone_number}."
-          end
+          # @users.each do |user|
+          #   @twilio_client.account.sms.messages.create(
+          #     :from => '+16463621414',
+          #     :to => user.phone_number,
+          #     :body => "#{current_user.name} just commented on a collude post."
+          #   )
+          #   logger.info "Text message sent to #{user.name} at #{user.phone_number}."
+          # end
           redirect_to root_path, notice: 'Comment was successfully created.'
         end 
         format.json { render action: 'show', status: :created, location: @comment }
